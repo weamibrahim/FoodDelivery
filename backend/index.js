@@ -46,7 +46,9 @@ app.get('/', (req, res) => {
 
 // connect to the database
 const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI);
+// mongoose.connect(mongoURI);
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on("connected", () => {
   console.log("Connected to the database");
 });
