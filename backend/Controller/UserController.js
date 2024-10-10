@@ -7,7 +7,7 @@ const UserController = {};
 UserController.register = async (req, res) => {
   try {
     console.log(req.body);
-    const { name, email, password, role } = req.body;
+    const { firstName, lastName, email, password, role, phone , address } = req.body;
     const user = await User.findOne({ email });
     console.log(user);
     // Check if user already exists
@@ -18,11 +18,13 @@ UserController.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     // Create new user
     const newUser = await new User({
-      name,
+      firstName,
+      lastName,
+      phone,
+      address,
       email,
       password: hashedPassword,
       role,
-      
       
     });
     // Save user to database
