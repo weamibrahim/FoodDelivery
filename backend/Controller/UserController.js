@@ -7,12 +7,15 @@ const UserController = {};
 UserController.register = async (req, res) => {
   try {
     console.log(req.body);
-    const { firstName, lastName, email, password, role, phone , address } = req.body;
+    const { firstName, lastName, email, password,confirmPassword, role, phone , address } = req.body;
     const user = await User.findOne({ email });
     console.log(user);
     // Check if user already exists
     if (user) {
       return res.status(400).json({ message: "User already exists" });
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
     }
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
