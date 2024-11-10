@@ -9,6 +9,7 @@ import { CartContext } from '../../context/CartContext';
 const navigation = [
   
   { name: 'Home', href: '/', current: true },
+  { name: 'Dashboard', href: '/dashboard', current: true },
   { name: 'Menu', href: '/menu', current: false },
   { name: 'Contact us', href: '/contact', current: false },
   { name: 'About', href:'/about', current: false },

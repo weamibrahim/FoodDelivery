@@ -1,12 +1,12 @@
 require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); 
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const StripeController = {};
 
 StripeController.createCheckoutSession = async (req, res) => {
   // console.log(req.body);
   const { userId, cart, deliveryDetails } = req.body;
- cartItems = cart.items;
-    
+  cartItems = cart.items;
+
   //   console.log(userId);
   if (!Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: "Invalid cart items" });
@@ -22,13 +22,14 @@ StripeController.createCheckoutSession = async (req, res) => {
           product_data: {
             name: name,
           },
-          unit_amount: unitAmount, 
+          unit_amount: unitAmount,
         },
         quantity: item.quantity,
       };
     });
 
-    const baseURL = process.env.BASE_URL || "http://localhost:3000"; 
+    const baseURL =
+      process.env.BASE_URL || "https://fooddelivery-ivory.vercel.app";
     if (!baseURL.startsWith("http://") && !baseURL.startsWith("https://")) {
       throw new Error("BASE_URL must start with http:// or https://");
     }
@@ -43,7 +44,7 @@ StripeController.createCheckoutSession = async (req, res) => {
         userId,
         name: deliveryDetails.name,
         address: deliveryDetails.address,
-        phone: deliveryDetails.phone, 
+        phone: deliveryDetails.phone,
       },
     });
 

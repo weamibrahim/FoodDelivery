@@ -21,10 +21,20 @@ OrderController.getAllOrdersByUserId = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// Get an all orders 
+OrderController.getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({}).populate("userId");
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 // Update an order
 OrderController.updateOrder = async (req, res) => {
   try {
-    const { id, status } = req.body;
+    const id = req.params.id;
+    const {  status } = req.body;
     const updatedOrder = await Order.findByIdAndUpdate(
       id,
       {

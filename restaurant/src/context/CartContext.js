@@ -21,7 +21,9 @@ export const CartProvider = ({ children }) => {
   // Fetch cart from backend
   const fetchCart = async (userId) => {
     try {
-      const response = await fetch(`https://fooddelivery-ivory.vercel.app/api/cart/${userId}`);
+      const response = await fetch(
+        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`
+      );
       const responseData = await response.json();
       console.log("Fetched Cart Data:", responseData);
 
@@ -38,7 +40,7 @@ export const CartProvider = ({ children }) => {
   // Add to cart
   const addToCart = async (product, userId) => {
     console.log("Product received in addToCart:", product);
-    
+
     // Check if product is valid and has an _id
     if (!product || !product._id) {
       console.error("Invalid product or missing _id:", product);
@@ -48,7 +50,7 @@ export const CartProvider = ({ children }) => {
     try {
       console.log("cart", cart);
       const existingItem = cart.find((item) => item._id === product._id);
-            console.log("Existing item in cart:", existingItem);
+      console.log("Existing item in cart:", existingItem);
       if (existingItem) {
         // Increment quantity if the item is already in the cart
         await incrementQuantity(product._id, userId);
@@ -63,17 +65,24 @@ export const CartProvider = ({ children }) => {
           quantity: 1,
         };
 
-        const response = await fetch("https://fooddelivery-ivory.vercel.app/api/cart/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        });
+        const response = await fetch(
+          "https://fooddelivery-ivory.vercel.app/api/cart/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+          }
+        );
 
         if (!response.ok) {
           const responseData = await response.json();
-          console.error("Error adding product to the cart:", response.status, responseData);
+          console.error(
+            "Error adding product to the cart:",
+            response.status,
+            responseData
+          );
         }
       }
     } catch (error) {
@@ -84,7 +93,9 @@ export const CartProvider = ({ children }) => {
   // Increment quantity
   const incrementQuantity = async (foodId, userId) => {
     const updatedCart = cart.map((item) =>
-      item.foodId._id === foodId ? { ...item, quantity: item.quantity + 1 } : item
+      item.foodId._id === foodId
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
     );
     setCart(updatedCart);
 
@@ -101,10 +112,16 @@ export const CartProvider = ({ children }) => {
 
       if (!response.ok) {
         const responseData = await response.json();
-        console.error("Error incrementing product quantity:", response.status, responseData);
+        console.error(
+          "Error incrementing product quantity:",
+          response.status,
+          responseData
+        );
         // Rollback state on failure
         const rollbackCart = cart.map((item) =>
-          item.foodId._id === foodId ? { ...item, quantity: item.quantity - 1 } : item
+          item.foodId._id === foodId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
         );
         setCart(rollbackCart);
       }
@@ -120,7 +137,9 @@ export const CartProvider = ({ children }) => {
       await deleteItem(foodId, userId);
     } else {
       const updatedCart = cart.map((item) =>
-        item.foodId._id === foodId ? { ...item, quantity: item.quantity - 1 } : item
+        item.foodId._id === foodId
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
       );
       setCart(updatedCart);
 
@@ -137,10 +156,16 @@ export const CartProvider = ({ children }) => {
 
         if (!response.ok) {
           const responseData = await response.json();
-          console.error("Error decrementing product quantity:", response.status, responseData);
+          console.error(
+            "Error decrementing product quantity:",
+            response.status,
+            responseData
+          );
           // Rollback state on failure
           const rollbackCart = cart.map((item) =>
-            item.foodId._id === foodId ? { ...item, quantity: item.quantity + 1 } : item
+            item.foodId._id === foodId
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
           );
           setCart(rollbackCart);
         }
@@ -168,9 +193,16 @@ export const CartProvider = ({ children }) => {
 
       if (!response.ok) {
         const responseData = await response.json();
-        console.error("Error deleting item from cart:", response.status, responseData);
+        console.error(
+          "Error deleting item from cart:",
+          response.status,
+          responseData
+        );
         // Rollback the state if API call fails
-        setCart([...updatedCart, cart.find(item => item.foodId._id === foodId)]);
+        setCart([
+          ...updatedCart,
+          cart.find((item) => item.foodId._id === foodId),
+        ]);
       }
     } catch (error) {
       console.error("Error with deleteItem API request:", error);
@@ -182,12 +214,15 @@ export const CartProvider = ({ children }) => {
     try {
       setCart([]);
 
-      const response = await fetch(`https://fooddelivery-ivory.vercel.app/api/cart/${userId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         const responseData = await response.json();
@@ -206,10 +241,10 @@ export const CartProvider = ({ children }) => {
   // Calculate total price
   const getTotalPrice = () => {
     return cart.reduce((total, item) => {
-      if (item.foodId && typeof item.foodId.price === 'number') {
+      if (item.foodId && typeof item.foodId.price === "number") {
         return total + item.foodId.price * item.quantity;
       }
-      console.warn('Item is missing foodId or price:', item);
+      console.warn("Item is missing foodId or price:", item);
       return total; // Skip this item if it doesn't have a price
     }, 0);
   };

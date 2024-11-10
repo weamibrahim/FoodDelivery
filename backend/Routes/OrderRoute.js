@@ -5,9 +5,10 @@ const router = express.Router();
 const OrderController = require("../Controller/orderController");
 
 // Define the routes
+router.get("/", OrderController.getAllOrders);
 router.get("/:id", OrderController.getAllOrdersByUserId);
 
-router.put("/", OrderController.updateOrder);
+router.put("/:id", OrderController.updateOrder);
 
 // Export the router
 module.exports = router;

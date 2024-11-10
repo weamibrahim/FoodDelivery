@@ -7,17 +7,20 @@ export const UserProvider = ({ children }) => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
-console.log(user)
+  console.log(user);
   // Update user details
   const updateUser = async (userId, updatedDetails) => {
     try {
-      const response = await fetch(`https://fooddelivery-ivory.vercel.app/api/user/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedDetails),
-      });
+      const response = await fetch(
+        `https://fooddelivery-ivory.vercel.app/api/user/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedDetails),
+        }
+      );
 
       const responseData = await response.json();
       if (response.ok) {
@@ -35,12 +38,15 @@ console.log(user)
   // Delete user account
   const deleteUser = async (userId) => {
     try {
-      const response = await fetch(`https://fooddelivery-ivory.vercel.app/api/user/${userId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://fooddelivery-ivory.vercel.app/api/user/${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         console.log("User account deleted");
