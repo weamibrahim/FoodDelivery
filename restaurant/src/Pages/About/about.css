@@ -1,0 +1,17 @@
+
+.about{
+    overflow: hidden;
+}
+.about-header{
+    background-image: url(/public/about1.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.overlay{
+    background-color: rgba(0, 0, 0, 0.637);
+}
+.about-section1{
+    border: 2px solid black;
+}

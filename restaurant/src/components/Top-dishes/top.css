@@ -1,0 +1,6 @@
+.card{
+    @apply max-w-sm bg-white border m-auto border-gray-200 rounded-lg shadow  dark:border-gray-700 p-3 h-full;
+}
+.card-img{
+    @apply rounded-t-lg h-56 w-full object-cover;
+}
