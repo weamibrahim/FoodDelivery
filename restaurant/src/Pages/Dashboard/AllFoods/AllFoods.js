@@ -40,6 +40,7 @@ function AllFoods() {
           <thead>
             <tr>
               <th className="py-2 px-4 border-b">Id</th>
+              <th className="py-2 px-4 border-b">image</th>
               <th className="py-2 px-4 border-b">Name</th>
               <th className="py-2 px-4 border-b">category</th>
               <th className="py-2 px-4 border-b">price</th>
@@ -51,10 +52,18 @@ function AllFoods() {
             {Foods.map((Food, index) => (
               <tr key={Food._id}>
                 <td className="py-2 px-4 border-b">{index + 1}</td>
+                <td className="py-2 px-4 border-b">
+                  <img
+                    src={Food.image}
+                    alt="food"
+                    className="w-20 h-20 rounded-full"
+                  />
+                </td>
                 <td className="py-2 px-4 border-b">{Food.name}</td>
                 <td className="py-2 px-4 border-b">{Food.category}</td>
                 <td className="py-2 px-4 border-b">{Food.price}</td>
                 <td className="py-2 px-4 border-b">{Food.description}</td>
+
                 <td className="py-2 px-4 border-b">
                   <button
                     className="bg-red-500 text-white rounded-md"

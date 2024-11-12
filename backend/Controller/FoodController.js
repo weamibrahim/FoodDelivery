@@ -25,7 +25,11 @@ FoodController.getFoodById = async (req, res) => {
 // Create a new food
 FoodController.createFood = async (req, res) => {
   try {
-    const newFood = await Food.create(req.body);
+    console.log(req.file);
+    console.log(req.body);
+    const image = req.file.path
+    const foods = {...req.body, image}
+    const newFood = await Food.create(foods);
     res.status(201).json({ newFood, message: "Food created successfully" });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -35,7 +39,13 @@ FoodController.createFood = async (req, res) => {
 // Update a food
 FoodController.updateFood = async (req, res) => {
   try {
-    const updatedFood = await Food.findByIdAndUpdate(req.params.id, req.body, {
+    let image=req.body.image
+    if(req.file){
+     image=req.file.path 
+    }
+
+    const food = {...req.body, image}
+    const updatedFood = await Food.findByIdAndUpdate(req.params.id, food, {
       new: true,
     });
     res.json(updatedFood);
