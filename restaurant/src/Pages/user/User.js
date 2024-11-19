@@ -30,7 +30,7 @@ export default function User() {
     </div>
     <div className='lg:w-1/2 m-auto text-center mb-16'>
         <Link to={"/userSettings"}><button className='w-full mb-5 lg:w-1/2 bg-orange-800 text-center  text-white'>Update account</button></Link>
-        <button className='w-full mb-5 lg:w-1/2 bg-orange-800 text-center text-white' onClick={handleDelete}>Delete account</button>
+        <button className='w-full mb-5 lg:w-1/2 bg-gray-300 text-center text-orange-950' onClick={handleDelete}>Delete account</button>
     </div>
    </div>
     </>

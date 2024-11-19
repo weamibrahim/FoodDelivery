@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./contact.css";
 import Header from "../../components/Header/Header";
 import { FaPhoneVolume } from "react-icons/fa6";
@@ -6,6 +6,11 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { IoLocation } from "react-icons/io5";
 export default function Contact() {
+  const [x,setX]=useState(false)
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    setX(true)
+  }
   return (
     <div className="overflow-hidden">
       <div className="contact-header h-96 ">
@@ -17,7 +22,7 @@ export default function Contact() {
         </div>
       </div>
       <div className="mt-20 flex flex-col-reverse md:flex-row   gap-5 justify-center m-5  lg:overflow-hidden lg:h-screen lg:pt-16 " >
-    <div className="lg:w-1/3 lg:h-3/4 md:h-3/4 md:w-1/2 md:overflow-hidden rounde-md  sm:h-full ">
+    <div className="lg:w-1/3 lg:h-4/5 md:h-4/5 md:w-1/2 md:overflow-hidden rounde-md  sm:h-full ">
     <div className="grid grid-flow-row xl:grid-flow-col xl:grid-rows-2 gap-5 lg:grid-flow-col lg:grid-rows-2 sm:grid-rows-1   text-center  ">
     
     <div className="bg-orange-200 p-5 rounded-md ">
@@ -56,8 +61,8 @@ export default function Contact() {
      </div>
     </div>
         <div className="lg:w-1/3 md:w-1/2 lg:h-full md:h-3/4 ">
-          <div class="w-full h-3/4  p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
-            <form className="space-y-6 text-start " action="#">
+          <div class="w-full h-4/5  p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+            <form className="space-y-6 text-start " action="#" onSubmit={handleSubmit}>
               <h5 class="text-xl font-medium text-orange-700">
                 Let us know your opinion
               </h5>
@@ -111,12 +116,15 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                class="w-full text-white bg-orange-800  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center   "
-              >
+                class="w-full text-white bg-orange-800   font-medium rounded-lg text-sm px-5 py-2.5 text-center   "
+      
+            >
                 submit
+             
               </button>
               
             </form>
+            {x&&<div className="pt-1 text-green-700"> Message sent successfuly</div>}
           </div>
         </div>
       </div>

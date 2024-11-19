@@ -134,7 +134,7 @@ export default function AccountSettings() {
             <button
               type="button"
               onClick={handleUpdate}
-              className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
+              className="w-full bg-orange-700 text-white py-2 rounded-md  transition duration-200"
             >
               Update Account
             </button>
@@ -142,7 +142,7 @@ export default function AccountSettings() {
 
           <button
             onClick={handleDelete}
-            className="w-full bg-orange-700 text-white py-2 mt-4 rounded-md hover:bg-orange-800 transition duration-200"
+            className="w-full bg-gray-300 text-orange-950 py-2 mt-4 rounded-md hover:bg-orange-800 transition duration-200"
           >
             Delete Account
           </button>
