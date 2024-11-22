@@ -33,6 +33,7 @@ function App() {
   const user = JSON.parse(localStorage.getItem('user'));
   const userRole = user?.role || ''; // Default to an empty string if user data doesn't exist
   const isAdmin = userRole === 'admin';
+  const isLoggedIn = !!user;
 
   const isDashboard = location.pathname.startsWith('/dashboard');
   
@@ -82,15 +83,15 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
             <Route path='/contact' element={<Contact />} />
-            <Route path='/cart' element={<Cart />} />
+            <Route path='/cart' element={ isLoggedIn ? <Cart />: <Navigate to="/login"  />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/productDetails/:id' element={<ProductDetails />} />
-            <Route path='/user' element={<User />} />
-            <Route path='/userSettings' element={<AccountSettings />} />
+            <Route path='/user' element={ isLoggedIn ? <User /> : <Navigate to="/login" />} />
+            <Route path='/userSettings' element={isLoggedIn ? <AccountSettings /> : <Navigate to="/login" />} />
             <Route path='/menu' element={<Menu />} />
-            <Route path='/checkout' element={<Checkout />} />
-            <Route path='/order' element={<OrderSummary />} />
+            <Route path='/checkout' element={isLoggedIn ? <Checkout /> : <Navigate to="/login" />} />
+            <Route path='/order' element={isLoggedIn ? <OrderSummary /> : <Navigate to="/login" />} />
             <Route path='/not-found' element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
