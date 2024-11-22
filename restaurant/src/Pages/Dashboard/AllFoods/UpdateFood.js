@@ -67,15 +67,16 @@ function UpdateFood() {
   };
 
   return (
-    <div className="mx-auto p-4 sm:ml-64 bg_dashboard">
+    <div className="mx-auto p-4 sm:ml-64 bg_dashboard min-h-screen">
       <div className="flex justify-center">
         <div>
-          <h2 className="text-center text-white">Update Food Item</h2>
-          <div className="flex justify-center">
+         
+          <div className="mt-32 bg-white/40 p-5 rounded-lg">
+          <h2 className="text-center text-white font-serif text-2xl">Update Food Item</h2>
             <form onSubmit={handleSubmit} className="my-5">
               <label className="text-white">Image: </label>
               <input
-                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                className="block  border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="file"
                 name="image"
                 onChange={handleInputChange}
@@ -83,7 +84,7 @@ function UpdateFood() {
               <br />
               <label className="text-white">Name: </label>
               <input
-                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                className="block px-2 border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="text"
                 name="name"
                 onChange={handleInputChange}
@@ -92,7 +93,7 @@ function UpdateFood() {
               <br />
               <label className="text-white">Category: </label>
               <input
-                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                className="block px-2 border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="text"
                 name="category"
                 onChange={handleInputChange}
@@ -101,7 +102,7 @@ function UpdateFood() {
               <br />
               <label className="text-white">Description: </label>
               <input
-                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                className="block px-2 border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="text"
                 name="description"
                 onChange={handleInputChange}
@@ -110,7 +111,7 @@ function UpdateFood() {
               <br />
               <label className="text-white">Price: </label>
               <input
-                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                className="block px-2 border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="number"
                 name="price"
                 onChange={handleInputChange}

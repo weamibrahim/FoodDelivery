@@ -35,7 +35,7 @@ function AllFoods() {
       });
   };
   return (
-    <div className="mx-auto p-4 sm:ml-64  bg_dashboard">
+    <div className="mx-auto p-4 sm:ml-64  bg_dashboard min-h-screen">
       <button className="bg-green-500 rounded-md w-20 h-10 mb-3">
         <NavLink to="/dashboard/create">create</NavLink>
       </button>

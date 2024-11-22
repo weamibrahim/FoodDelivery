@@ -38,7 +38,7 @@ function AllUsers() {
       });
   };
   return (
-    <div className="mx-auto p-4 sm:ml-64 bg_dashboard">
+    <div className="mx-auto p-4 sm:ml-64 bg_dashboard min-h-screen">
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white/50 border border-gray-200">
           <thead>
