@@ -9,7 +9,7 @@ function AllUsers() {
     GetAllUser();
   }, []);
   const GetAllUser = () => {
-    fetch("https://fooddelivery-ivory.vercel.app/api/user/", {
+    fetch("http://localhost:7000/api/user/", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -19,7 +19,7 @@ function AllUsers() {
       });
   };
   const handleDelete = (id) => {
-    fetch(`https://fooddelivery-ivory.vercel.app/api/user/${id}`, {
+    fetch(`http://localhost:7000/api/user/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -30,9 +30,9 @@ function AllUsers() {
       });
   };
   return (
-    <div className="mx-auto p-4 sm:ml-64 mt-16">
+    <div className="mx-auto p-4 sm:ml-64 bg_dashboard">
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white/20 border border-gray-200">
+        <table className="min-w-full bg-white/50 border border-gray-200">
           <thead>
             <tr>
               <th className="py-2 px-4 border-b">Id</th>
@@ -46,7 +46,9 @@ function AllUsers() {
             {users.map((user, index) => (
               <tr key={user._id}>
                 <td className="py-2 px-4 border-b">{index + 1}</td>
-                <td className="py-2 px-4 border-b">{user.name}</td>
+                <td className="py-2 px-4 border-b">
+                  {user.firstName} {user.lastName}
+                </td>
                 <td className="py-2 px-4 border-b">{user.email}</td>
                 <td className="py-2 px-4 border-b">
                   {user.role === "admin" ? "Yes" : "No"}

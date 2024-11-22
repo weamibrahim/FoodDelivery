@@ -16,6 +16,8 @@ OrderController.createOrder = async (newOrder) => {
 OrderController.getAllOrdersByUserId = async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.params.id });
+    console.log(orders);
+
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -24,7 +26,8 @@ OrderController.getAllOrdersByUserId = async (req, res) => {
 // Get an all orders 
 OrderController.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find({}).populate("userId");
+    const orders = await Order.find();
+    console.log(orders);
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });

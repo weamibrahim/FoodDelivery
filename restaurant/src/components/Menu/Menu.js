@@ -1,8 +1,10 @@
-import React, { useContext ,useState,useEffect} from 'react'
+import React, { useContext ,useState,useEffect, useRef} from 'react'
 import { fetchProducts } from '../../Products'
 import "./menu.css"
 import { CategoryContext } from '../../context/CategoryContext'
+import {motion} from "framer-motion"
 export default function Menu() {
+        const scrollRef=useRef(null)
         const {salad,MainDishes,BreakFast,Sandwich,desserts,Juice,pasta}=useContext(CategoryContext)
         const [products,setProducts]=useState([])
        
@@ -22,60 +24,69 @@ export default function Menu() {
         if(error){
          return <div>{error}</div>
         }
+
+        
   return (
-    <div className='mt-28' >
-        <h2 className='mb-6 title text-2xl'>Menu</h2>
+   <div ref={scrollRef} style={{overflow:"hidden"}}>
+         <motion.div className='mt-28' 
+          initial={{opacity:0,y:100}}
+          whileInView={{opacity:1,y:0}}
+          transition={{duration:1}}
+          viewport={{once:true}}
+         >
+        <h2 className='mb-6 title text-2xl text-orange-950'>Menu</h2>
       <div className='m-auto container grid grid-flow-row grid-cols-3 xl:grid-cols-7 md:grid-cols-4  '>
-        <div onClick={()=>salad()}>
+        <motion.div whileHover={{scale:0.8}}   onClick={()=>salad()}>
             <img 
             width={100}
             height={100}
             className=' menu-img' src='\Salad (1).jpeg' alt=''/>
             <h5 className=''>All</h5>
-    </div>
-    <div onClick={()=>BreakFast(products)}>
+    </motion.div>
+    <motion.div  whileHover={{scale:0.8}} onClick={()=>BreakFast(products)}>
             <img 
             width={100}
             height={100}
             className=' menu-img' src='\Salad (4).jpeg' alt=''/>
             <h5 className=''>Breakfast</h5>
-    </div>
-    <div onClick={()=>MainDishes(products)}>
+    </motion.div>
+    <motion.div whileHover={{scale:0.8}}  onClick={()=>MainDishes(products)}>
             <img 
             width={100}
             height={100}
             className=' menu-img' src='\Salad (6).jpeg' alt=''/>
             <h5 className=''>Main dishes</h5>
-    </div>
-    <div onClick={()=>Sandwich(products)}>
+    </motion.div>
+    <motion.div whileHover={{scale:0.8}}  onClick={()=>Sandwich(products)}>
             <img 
             width={100}
             height={100}
             className=' menu-img' src='\Sandwich.jpeg' alt=''/>
             <h5 className=''>Sandwich</h5>
-    </div>
-    <div onClick={()=>desserts(products)}>
+    </motion.div>
+    <motion.div whileHover={{scale:0.8}}  onClick={()=>desserts(products)}>
             <img 
             width={100}
             height={100}
             className=' menu-img' src='\dessert.jpeg' alt=''/>
             <h5 className=''>Desserts</h5>
-    </div>
-    <div onClick={()=>Juice(products)}>
+    </motion.div>
+   <motion.div whileHover={{scale:0.8}}  onClick={()=>Juice(products)}>
             <img 
             width={100}
             height={100}
             className=' menu-img' src='\Juice.jpeg' alt=''/>
             <h5 className=''>Juice</h5>
-    </div>
-    <div onClick={()=>pasta(products)}>
+    </motion.div>
+    <motion.div  whileHover={{scale:0.8}} onClick={()=>pasta(products)}>
             <img 
             width={100}
             height={100}
             className='menu-img' src='\Pasta.jpeg' alt=''/>
             <h5 className=''>Pasta</h5>
+    </motion.div>
     </div>
-    </div>
-    </div>
+    </motion.div>
+   </div>
   )
 }

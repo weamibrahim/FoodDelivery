@@ -39,7 +39,7 @@ function CreateFood() {
 
     try {
       await axios
-        .post("https://fooddelivery-ivory.vercel.app/api/food", formData, {
+        .post("http://localhost:7000/api/food", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -59,13 +59,13 @@ function CreateFood() {
   };
 
   return (
-    <div className="mx-auto p-4 sm:ml-64 mt-16">
+    <div className="mx-auto p-4 sm:ml-64 bg_dashboard">
       <div className="flex justify-center">
         <div>
-          <h2 className="text-center">Create New Food</h2>
+          <h2 className="text-center text-white">Create New Food</h2>
           <div className="flex justify-center">
             <form onSubmit={handleSubmit} className="my-5">
-              <label>Image: </label>
+              <label className="text-white">Image: </label>
               <input
                 className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="file"
@@ -73,7 +73,7 @@ function CreateFood() {
                 onChange={handleInputChange}
               />
               <br />
-              <label>Name: </label>
+              <label className="text-white">Name: </label>
               <input
                 className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="text"
@@ -82,7 +82,7 @@ function CreateFood() {
                 value={foodData.name}
               />
               <br />
-              <label>Category: </label>
+              <label className="text-white">Category: </label>
               <input
                 className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="text"
@@ -91,7 +91,7 @@ function CreateFood() {
                 value={foodData.category}
               />
               <br />
-              <label>Description: </label>
+              <label className="text-white">Description: </label>
               <input
                 className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="text"
@@ -100,7 +100,7 @@ function CreateFood() {
                 value={foodData.description}
               />
               <br />
-              <label>Price: </label>
+              <label className="text-white">Price: </label>
               <input
                 className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
                 type="number"
@@ -110,8 +110,8 @@ function CreateFood() {
               />
               <br />
               <div className="flex justify-center">
-                <button className="btn btn-info" type="submit">
-                  Create Food
+                <button className="bg-green-500 rounded-md w-20 h-10 text-white" type="submit">
+                  Create 
                 </button>
               </div>
             </form>

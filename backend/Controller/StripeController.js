@@ -5,7 +5,8 @@ const StripeController = {};
 StripeController.createCheckoutSession = async (req, res) => {
   // console.log(req.body);
   const { userId, cart, deliveryDetails } = req.body;
-  cartItems = cart.items;
+  
+  cartItems = cart;
 
   //   console.log(userId);
   if (!Array.isArray(cartItems) || cartItems.length === 0) {
@@ -28,8 +29,7 @@ StripeController.createCheckoutSession = async (req, res) => {
       };
     });
 
-    const baseURL =
-      process.env.BASE_URL || "https://fooddelivery-ivory.vercel.app";
+    const baseURL = process.env.BASE_URL || "http://localhost:7000";
     if (!baseURL.startsWith("http://") && !baseURL.startsWith("https://")) {
       throw new Error("BASE_URL must start with http:// or https://");
     }
@@ -41,7 +41,7 @@ StripeController.createCheckoutSession = async (req, res) => {
       success_url: `${baseURL}/order`,
       cancel_url: `${baseURL}/cart`,
       metadata: {
-        userId,
+        userId: userId,
         name: deliveryDetails.name,
         address: deliveryDetails.address,
         phone: deliveryDetails.phone,

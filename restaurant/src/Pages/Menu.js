@@ -27,16 +27,16 @@ export default function Menu() {
   }
 
   if (products.length === 0) {
-    return <div>No products available.</div>; // Handle no products case
+    return <div className='min-h-screen flex justify-center items-center'>Loading products ....</div>; // Handle no products case
   }
 
   return (
-    <div>
+    <div className='min-h-screen'>
         <div className='bg-orange-700'><Header/></div>
         <h1 className='text-2xl title mt-16'>Our Products </h1>
        <ul
            
-           className="cards-parent mt-5  border-orange-700 grid gap-5 container m-auto p-6 xl:grid-rows-5  xl:gap-7  lg:grid-rows-3 lg:grid-flow-col lg:gap-7 lg:p-10 md:grid-rows-10 md:grid-flow-col md:gap-4 md:p-8"
+           className="cards-parent mt-5  mb-10 border-orange-700 grid gap-5 container m-auto p-6 xl:grid-rows-5  xl:gap-7  lg:grid-rows-3 lg:grid-flow-col lg:gap-7 lg:p-10 md:grid-rows-10 md:grid-flow-col md:gap-4 md:p-8"
          >
            {products.map((product) => (
              <div
@@ -63,7 +63,7 @@ export default function Menu() {
                  </p>
                </div>
                <button
-                 className="bg-orange-700  p-2 rounded-lg text-white"
+                 className="bg-orange-700  py-1 px-2 rounded-lg text-white"
                  onClick={() => {
                    if (userId) {
                      addToCart(product, userId);

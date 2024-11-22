@@ -10,7 +10,7 @@ function AllFoods() {
     GetAllFood();
   }, []);
   const GetAllFood = () => {
-    fetch("https://fooddelivery-ivory.vercel.app/api/food/", {
+    fetch("http://localhost:7000/api/food/", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -20,7 +20,7 @@ function AllFoods() {
       });
   };
   const handleDelete = (id) => {
-    fetch(`https://fooddelivery-ivory.vercel.app/api/food/${id}`, {
+    fetch(`http://localhost:7000/api/food/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -31,12 +31,12 @@ function AllFoods() {
       });
   };
   return (
-    <div className="mx-auto p-4 sm:ml-64 mt-16">
+    <div className="mx-auto p-4 sm:ml-64  bg_dashboard">
       <button className="bg-green-500 rounded-md w-20 h-10 mb-3">
         <NavLink to="/dashboard/create">create</NavLink>
       </button>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white/20 border border-gray-200">
+        <table className="min-w-full bg-white/50 border border-gray-200">
           <thead>
             <tr>
               <th className="py-2 px-4 border-b">Id</th>

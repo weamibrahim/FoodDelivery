@@ -15,7 +15,7 @@ function UpdateFood() {
 
   useEffect(() => {
     axios
-      .get(`https://fooddelivery-ivory.vercel.app/api/food/${id}`)
+      .get(`http://localhost:7000/api/food/${id}`)
       .then((response) => setFoodData(response.data))
       .catch((error) => console.error("Error fetching food data:", error));
   }, [id]);
@@ -45,7 +45,7 @@ function UpdateFood() {
     });
 
     axios
-      .put(`https://fooddelivery-ivory.vercel.app/api/food/${id}`, formData, {
+      .put(`http://localhost:7000/api/food/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -62,64 +62,65 @@ function UpdateFood() {
   };
 
   return (
-    <div className="mx-auto p-4 sm:ml-64 mt-16">
-      <h2 className="text-center">Update Food Item</h2>
-      <form onSubmit={handleSubmit} className="my-5">
-        <label>Image: </label>
-        <input
-          className="block border w-full rounded-md"
-          type="file"
-          name="image"
-          onChange={handleInputChange}
-        />
-
-        <br />
-        <label>Name: </label>
-        <input
-          className="block border w-full rounded-md"
-          type="text"
-          name="name"
-          value={foodData.name}
-          onChange={handleInputChange}
-        />
-        <br />
-
-        <label>Category: </label>
-        <input
-          className="block border w-full rounded-md"
-          type="text"
-          name="category"
-          value={foodData.category}
-          onChange={handleInputChange}
-        />
-        <br />
-
-        <label>Description: </label>
-        <input
-          className="block border w-full rounded-md"
-          type="text"
-          name="description"
-          value={foodData.description}
-          onChange={handleInputChange}
-        />
-        <br />
-
-        <label>Price: </label>
-        <input
-          className="block border w-full rounded-md"
-          type="number"
-          name="price"
-          value={foodData.price}
-          onChange={handleInputChange}
-        />
-        <br />
-
-        <div className="flex justify-center">
-          <button className="btn btn-info" type="submit">
-            Update Food
-          </button>
+    <div className="mx-auto p-4 sm:ml-64 bg_dashboard">
+      <div className="flex justify-center">
+        <div>
+          <h2 className="text-center text-white">Update Food Item</h2>
+          <div className="flex justify-center">
+            <form onSubmit={handleSubmit} className="my-5">
+              <label className="text-white">Image: </label>
+              <input
+                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                type="file"
+                name="image"
+                onChange={handleInputChange}
+              />
+              <br />
+              <label className="text-white">Name: </label>
+              <input
+                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                type="text"
+                name="name"
+                onChange={handleInputChange}
+                value={foodData.name}
+              />
+              <br />
+              <label className="text-white">Category: </label>
+              <input
+                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                type="text"
+                name="category"
+                onChange={handleInputChange}
+                value={foodData.category}
+              />
+              <br />
+              <label className="text-white">Description: </label>
+              <input
+                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                type="text"
+                name="description"
+                onChange={handleInputChange}
+                value={foodData.description}
+              />
+              <br />
+              <label className="text-white">Price: </label>
+              <input
+                className="block border-black border w-full focus:ring-green-400 focus:border-green-400 rounded-md"
+                type="number"
+                name="price"
+                onChange={handleInputChange}
+                value={foodData.price}
+              />
+              <br />
+              <div className="flex justify-center">
+                <button className="bg-green-500 rounded-md w-20 h-10 text-white" type="submit">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

@@ -44,7 +44,8 @@ CartController.getCart = async (req, res) => {
 // Delete cart
 CartController.deleteCart = async (req, res) => {
     try {
-        const { userId} = req.body;
+        console.log(req.params);
+        const { userId} = req.params;
       const cart = await Cart.findOne({ userId });
       cart.items = [];
       cart.save();

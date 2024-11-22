@@ -5,7 +5,7 @@ import { IoIosMenu } from "react-icons/io";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
-
+import {motion} from "framer-motion"
 const navigation = [
   
   { name: 'Home', href: '/', current: true },
@@ -31,7 +31,7 @@ const {cart}=useContext(CartContext)
 const cartCount=cart.length
   return (
     <Disclosure as="nav">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 z-50">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
@@ -70,7 +70,10 @@ const cartCount=cart.length
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
+                  <motion.a
+                  initial={{y:"-100vh"}}
+                  animate={{y:0}}
+                  transition={{delay:0.5,type:"spring",stiffness:120}}
                     key={item.name}
                     href={item.href}
                     aria-current={item.current ? 'page' : undefined}
@@ -80,20 +83,20 @@ const cartCount=cart.length
 
                   >
                     {item.name}
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <Link
+            {user&&<Link
               to={"/cart"}
               className="relative rounded-full bg-white p-2 text-orange-600 hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
               <GiShoppingCart />
               <div className='absolute bg-orange-800  h-5 w-5 text-center rounded-full text-white -top-2 -right-2'>{cartCount}</div>
-            </Link>
+            </Link>}
 
             {/* Profile dropdown */}
             {user ? (

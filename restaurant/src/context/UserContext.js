@@ -11,16 +11,13 @@ export const UserProvider = ({ children }) => {
   // Update user details
   const updateUser = async (userId, updatedDetails) => {
     try {
-      const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/user/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedDetails),
-        }
-      );
+      const response = await fetch(`http://localhost:7000/api/user/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedDetails),
+      });
 
       const responseData = await response.json();
       if (response.ok) {
@@ -38,15 +35,12 @@ export const UserProvider = ({ children }) => {
   // Delete user account
   const deleteUser = async (userId) => {
     try {
-      const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/user/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:7000/api/user/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
         console.log("User account deleted");

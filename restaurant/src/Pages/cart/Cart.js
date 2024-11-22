@@ -2,7 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
-
+import { Button } from '@headlessui/react';
+// ES2015 module syntax
+import { Fade } from "@progress/kendo-react-animation";
 export default function Cart() {
   const { cart, fetchCart, incrementQuantity, decrementQuantity, deleteItem, deleteCart, getTotalPrice } = useContext(CartContext);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -49,8 +51,11 @@ export default function Cart() {
               )
             ))}
             <div className="col-span-full mt-4 text-lg font-bold">Total price: {getTotalPrice()} $</div>
-            <button onClick={() => deleteCart(userId)} className="col-span-full mt-2 px-4 py-2 bg-orange-700 text-white rounded">Clear Cart</button>
-          </ul>
+         <div className='flex col-span-full justify-center  mb-10 '>
+         <button onClick={() => deleteCart(userId)} className="col-span-full mt-2 mr-9 px-4 py-2 bg-orange-700 text-white rounded">Clear Cart</button>
+          <Link  to={"/checkout"}><button className='col-span-full mt-2 px-4 py-2 bg-orange-700 text-white rounded'>Checkout</button></Link>
+         
+          </div> </ul>
         )}
       </div>
     </div>

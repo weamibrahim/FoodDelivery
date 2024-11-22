@@ -4,6 +4,7 @@ const {createOrder } = require('../Controller/orderController');
 const Cart = require('../Models/Cart');
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const WebhookController = {};
+const mongoose = require('mongoose');
 
 WebhookController.handleWebhook = async (req, res) => {
   // console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY);
@@ -51,6 +52,7 @@ WebhookController.handleWebhook = async (req, res) => {
       // Save the order
     createOrder(orderData);
       
+    
     //   Clear the cart after the order is processed
     await Cart.deleteOne({ userId: session.metadata.userId });
 

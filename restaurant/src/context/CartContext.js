@@ -8,8 +8,10 @@ export const CartProvider = ({ children }) => {
   // Initialize cart from local storage
   useEffect(() => {
     const localCart = JSON.parse(localStorage.getItem("cart"));
-    if (localCart) {
+    if (Array.isArray(localCart)) {
       setCart(localCart);
+    } else {
+      setCart([]);
     }
   }, []);
 
@@ -21,14 +23,12 @@ export const CartProvider = ({ children }) => {
   // Fetch cart from backend
   const fetchCart = async (userId) => {
     try {
-      const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`
-      );
+      const response = await fetch(`http://localhost:7000/api/cart/${userId}`);
       const responseData = await response.json();
       console.log("Fetched Cart Data:", responseData);
 
       if (response.ok) {
-        setCart(responseData.items);
+        setCart(Array.isArray(responseData.items) ? responseData.items : []);
       } else {
         console.error("Error fetching cart:", response.status, responseData);
       }
@@ -41,10 +41,9 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (product, userId) => {
     console.log("Product received in addToCart:", product);
 
-    // Check if product is valid and has an _id
     if (!product || !product._id) {
       console.error("Invalid product or missing _id:", product);
-      return; // Exit early if product is invalid
+      return;
     }
 
     try {
@@ -52,10 +51,8 @@ export const CartProvider = ({ children }) => {
       const existingItem = cart.find((item) => item._id === product._id);
       console.log("Existing item in cart:", existingItem);
       if (existingItem) {
-        // Increment quantity if the item is already in the cart
         await incrementQuantity(product._id, userId);
       } else {
-        // Add new product to the cart
         const newItem = { ...product, quantity: 1 };
         setCart((prevCart) => [...prevCart, newItem]);
 
@@ -65,16 +62,13 @@ export const CartProvider = ({ children }) => {
           quantity: 1,
         };
 
-        const response = await fetch(
-          "https://fooddelivery-ivory.vercel.app/api/cart/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestBody),
-          }
-        );
+        const response = await fetch("http://localhost:7000/api/cart/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        });
 
         if (!response.ok) {
           const responseData = await response.json();
@@ -101,7 +95,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/incrementQuantity/${userId}/${foodId}`,
+        `http://localhost:7000/api/cart/incrementQuantity/${userId}/${foodId}`,
         {
           method: "PUT",
           headers: {
@@ -117,7 +111,7 @@ export const CartProvider = ({ children }) => {
           response.status,
           responseData
         );
-        // Rollback state on failure
+
         const rollbackCart = cart.map((item) =>
           item.foodId._id === foodId
             ? { ...item, quantity: item.quantity - 1 }
@@ -145,7 +139,7 @@ export const CartProvider = ({ children }) => {
 
       try {
         const response = await fetch(
-          `https://fooddelivery-ivory.vercel.app/api/cart/decrementQuantity/${userId}/${foodId}`,
+          `http://localhost:7000/api/cart/decrementQuantity/${userId}/${foodId}`,
           {
             method: "PUT",
             headers: {
@@ -161,7 +155,7 @@ export const CartProvider = ({ children }) => {
             response.status,
             responseData
           );
-          // Rollback state on failure
+
           const rollbackCart = cart.map((item) =>
             item.foodId._id === foodId
               ? { ...item, quantity: item.quantity + 1 }
@@ -182,7 +176,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/remove-item/${userId}/${foodId}`,
+        `http://localhost:7000/api/cart/remove-item/${userId}/${foodId}`,
         {
           method: "PUT",
           headers: {
@@ -198,7 +192,6 @@ export const CartProvider = ({ children }) => {
           response.status,
           responseData
         );
-        // Rollback the state if API call fails
         setCart([
           ...updatedCart,
           cart.find((item) => item.foodId._id === foodId),
@@ -214,15 +207,12 @@ export const CartProvider = ({ children }) => {
     try {
       setCart([]);
 
-      const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:7000/api/cart/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         const responseData = await response.json();
@@ -245,7 +235,7 @@ export const CartProvider = ({ children }) => {
         return total + item.foodId.price * item.quantity;
       }
       console.warn("Item is missing foodId or price:", item);
-      return total; // Skip this item if it doesn't have a price
+      return total;
     }, 0);
   };
 
@@ -258,7 +248,7 @@ export const CartProvider = ({ children }) => {
         deleteItem,
         deleteCart,
         fetchCart,
-        cart,
+        cart: Array.isArray(cart) ? cart : [], // Ensure cart is always an array
         getTotalPrice,
       }}
     >
