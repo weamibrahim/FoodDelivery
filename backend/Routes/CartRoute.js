@@ -3,14 +3,14 @@ const router = express.Router();
 
 // Import the CartController
 const CartController = require("../Controller/CartController");
-cons
+const verifyToken  = require("../Middleware/Authentication");
 // Define the routes
-router.get("/:userId", CartController.getCart);
-router.post("/", CartController.addToCart);
-router.put("/remove-item/:userId/:foodId", CartController.deleteItem);
-router.delete("/:userId", CartController.deleteCart);
-router.put("/incrementQuantity/:userId/:foodId", CartController.incrementQuantity);
-router.put("/decrementQuantity/:userId/:foodId", CartController.decrementQuantity);
+router.get("/:userId",verifyToken, CartController.getCart);
+router.post("/",verifyToken, CartController.addToCart);
+router.put("/remove-item/:userId/:foodId",verifyToken, CartController.deleteItem);
+router.delete("/:userId",verifyToken, CartController.deleteCart);
+router.put("/incrementQuantity/:userId/:foodId",verifyToken, CartController.incrementQuantity);
+router.put("/decrementQuantity/:userId/:foodId",verifyToken, CartController.decrementQuantity);
 
 // Export the router
 module.exports = router;
