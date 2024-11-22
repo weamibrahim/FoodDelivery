@@ -26,7 +26,7 @@ export default function Login() {
     e.preventDefault();
 
     // Send data to API
-    fetch("https://fooddelivery-ivory.vercel.app/api/user/login", {
+    fetch("https://food-delivery-two-phi.vercel.app/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

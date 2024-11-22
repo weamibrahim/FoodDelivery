@@ -20,7 +20,7 @@ export const CheckoutProvider = function ({ children }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://fooddelivery-ivory.vercel.app/api/stripe/create-checkout-session",
+          "https://food-delivery-two-phi.vercel.app/api/stripe/create-checkout-session",
           {
             method: "POST",
             headers: {

@@ -39,7 +39,7 @@ function CreateFood() {
 
     try {
       await axios
-        .post("https://fooddelivery-ivory.vercel.app/api/food", formData, {
+        .post("https://food-delivery-two-phi.vercel.app/api/food", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

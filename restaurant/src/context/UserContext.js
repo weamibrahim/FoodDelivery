@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
   const updateUser = async (userId, updatedDetails) => {
     try {
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/user/${userId}`,
+        `https://food-delivery-two-phi.vercel.app/api/user/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -40,7 +40,7 @@ export const UserProvider = ({ children }) => {
   const deleteUser = async (userId) => {
     try {
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/user/${userId}`,
+        `https://food-delivery-two-phi.vercel.app/api/user/${userId}`,
         {
           method: "DELETE",
           headers: {

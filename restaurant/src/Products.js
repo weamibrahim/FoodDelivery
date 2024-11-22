@@ -1,7 +1,7 @@
 export const fetchProducts = async () => {
   try {
     const response = await fetch(
-      "https://fooddelivery-ivory.vercel.app/api/food/"
+      "https://food-delivery-two-phi.vercel.app/api/food/"
     );
     if (!response.ok) {
       throw new Error("failed to fetch");

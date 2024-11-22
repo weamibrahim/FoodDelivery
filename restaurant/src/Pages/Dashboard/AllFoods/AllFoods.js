@@ -10,7 +10,7 @@ function AllFoods() {
     GetAllFood();
   }, []);
   const GetAllFood = () => {
-    fetch("https://fooddelivery-ivory.vercel.app/api/food/", {
+    fetch("https://food-delivery-two-phi.vercel.app/api/food/", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -20,7 +20,7 @@ function AllFoods() {
       });
   };
   const handleDelete = (id) => {
-    fetch(`https://fooddelivery-ivory.vercel.app/api/food/${id}`, {
+    fetch(`https://food-delivery-two-phi.vercel.app/api/food/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

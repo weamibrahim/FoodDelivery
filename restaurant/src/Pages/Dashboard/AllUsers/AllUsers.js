@@ -9,7 +9,7 @@ function AllUsers() {
     GetAllUser();
   }, []);
   const GetAllUser = () => {
-    fetch("https://fooddelivery-ivory.vercel.app/api/user/", {
+    fetch("https://food-delivery-two-phi.vercel.app/api/user/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ function AllUsers() {
       });
   };
   const handleDelete = (id) => {
-    fetch(`https://fooddelivery-ivory.vercel.app/api/user/${id}`, {
+    fetch(`https://food-delivery-two-phi.vercel.app/api/user/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

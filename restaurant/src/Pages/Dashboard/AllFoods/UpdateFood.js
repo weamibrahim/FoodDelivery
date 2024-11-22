@@ -15,7 +15,7 @@ function UpdateFood() {
 
   useEffect(() => {
     axios
-      .get(`https://fooddelivery-ivory.vercel.app/api/food/${id}`)
+      .get(`https://food-delivery-two-phi.vercel.app/api/food/${id}`)
       .then((response) => setFoodData(response.data))
       .catch((error) => console.error("Error fetching food data:", error));
   }, [id]);
@@ -45,12 +45,16 @@ function UpdateFood() {
     });
 
     axios
-      .put(`https://fooddelivery-ivory.vercel.app/api/food/${id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .put(
+        `https://food-delivery-two-phi.vercel.app/api/food/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.status === 200) {
           console.log("Food updated successfully");

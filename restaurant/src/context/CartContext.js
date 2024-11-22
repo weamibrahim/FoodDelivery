@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
   const fetchCart = async (userId) => {
     try {
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`,
+        `https://food-delivery-two-phi.vercel.app/api/cart/${userId}`,
         {
           method: "GET",
           headers: {
@@ -72,7 +72,7 @@ export const CartProvider = ({ children }) => {
         };
 
         const response = await fetch(
-          "https://fooddelivery-ivory.vercel.app/api/cart/",
+          "https://food-delivery-two-phi.vercel.app/api/cart/",
           {
             method: "POST",
             headers: {
@@ -108,7 +108,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/incrementQuantity/${userId}/${foodId}`,
+        `https://food-delivery-two-phi.vercel.app/api/cart/incrementQuantity/${userId}/${foodId}`,
         {
           method: "PUT",
           headers: {
@@ -153,7 +153,7 @@ export const CartProvider = ({ children }) => {
 
       try {
         const response = await fetch(
-          `https://fooddelivery-ivory.vercel.app/api/cart/decrementQuantity/${userId}/${foodId}`,
+          `https://food-delivery-two-phi.vercel.app/api/cart/decrementQuantity/${userId}/${foodId}`,
           {
             method: "PUT",
             headers: {
@@ -191,7 +191,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/remove-item/${userId}/${foodId}`,
+        `https://food-delivery-two-phi.vercel.app/api/cart/remove-item/${userId}/${foodId}`,
         {
           method: "PUT",
           headers: {
@@ -224,7 +224,7 @@ export const CartProvider = ({ children }) => {
       setCart([]);
 
       const response = await fetch(
-        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`,
+        `https://food-delivery-two-phi.vercel.app/api/cart/${userId}`,
         {
           method: "DELETE",
           headers: {

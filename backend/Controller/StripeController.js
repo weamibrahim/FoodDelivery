@@ -30,7 +30,7 @@ StripeController.createCheckoutSession = async (req, res) => {
     });
 
     const baseURL =
-      process.env.BASE_URL || "https://fooddelivery-ivory.vercel.app";
+      process.env.BASE_URL || "https://food-delivery-two-phi.vercel.app";
     if (!baseURL.startsWith("http://") && !baseURL.startsWith("https://")) {
       throw new Error("BASE_URL must start with http:// or https://");
     }

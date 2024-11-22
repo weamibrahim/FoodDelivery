@@ -8,7 +8,7 @@ function AllOrders() {
   }, []);
 
   const getOrders = () => {
-    fetch("https://fooddelivery-ivory.vercel.app/api/order", {
+    fetch("https://food-delivery-two-phi.vercel.app/api/order", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ function AllOrders() {
       .catch((error) => console.error("Error fetching orders:", error));
   };
   const handleStatusChange = (orderId, newStatus) => {
-    fetch(`https://fooddelivery-ivory.vercel.app/api/order/${orderId}`, {
+    fetch(`https://food-delivery-two-phi.vercel.app/api/order/${orderId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

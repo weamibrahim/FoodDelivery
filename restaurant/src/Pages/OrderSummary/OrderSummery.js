@@ -13,7 +13,7 @@ export default function OrderSummary() {
     const fetchOrders = async () => {
       try {
         const response = await fetch(
-          `https://fooddelivery-ivory.vercel.app/api/order/${userId}`,
+          `https://food-delivery-two-phi.vercel.app/api/order/${userId}`,
           {
             method: "GET",
             headers: {
