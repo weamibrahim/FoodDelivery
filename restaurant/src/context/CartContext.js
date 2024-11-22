@@ -23,7 +23,16 @@ export const CartProvider = ({ children }) => {
   // Fetch cart from backend
   const fetchCart = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:7000/api/cart/${userId}`);
+      const response = await fetch(
+        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
       const responseData = await response.json();
       console.log("Fetched Cart Data:", responseData);
 
@@ -62,13 +71,17 @@ export const CartProvider = ({ children }) => {
           quantity: 1,
         };
 
-        const response = await fetch("http://localhost:7000/api/cart/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        });
+        const response = await fetch(
+          "https://fooddelivery-ivory.vercel.app/api/cart/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(requestBody),
+          }
+        );
 
         if (!response.ok) {
           const responseData = await response.json();
@@ -95,11 +108,12 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:7000/api/cart/incrementQuantity/${userId}/${foodId}`,
+        `https://fooddelivery-ivory.vercel.app/api/cart/incrementQuantity/${userId}/${foodId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
       );
@@ -139,11 +153,12 @@ export const CartProvider = ({ children }) => {
 
       try {
         const response = await fetch(
-          `http://localhost:7000/api/cart/decrementQuantity/${userId}/${foodId}`,
+          `https://fooddelivery-ivory.vercel.app/api/cart/decrementQuantity/${userId}/${foodId}`,
           {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
           }
         );
@@ -176,11 +191,12 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:7000/api/cart/remove-item/${userId}/${foodId}`,
+        `https://fooddelivery-ivory.vercel.app/api/cart/remove-item/${userId}/${foodId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
       );
@@ -207,12 +223,16 @@ export const CartProvider = ({ children }) => {
     try {
       setCart([]);
 
-      const response = await fetch(`http://localhost:7000/api/cart/${userId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://fooddelivery-ivory.vercel.app/api/cart/${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         const responseData = await response.json();

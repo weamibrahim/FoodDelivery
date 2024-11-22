@@ -20,11 +20,12 @@ export const CheckoutProvider = function ({ children }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:7000/api/stripe/create-checkout-session",
+          "https://fooddelivery-ivory.vercel.app/api/stripe/create-checkout-session",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
             body: JSON.stringify(requestBody),
           }

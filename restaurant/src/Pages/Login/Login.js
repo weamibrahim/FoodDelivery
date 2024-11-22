@@ -26,7 +26,7 @@ export default function Login() {
     e.preventDefault();
 
     // Send data to API
-    fetch("http://localhost:7000/api/user/login", {
+    fetch("https://fooddelivery-ivory.vercel.app/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,12 @@ export default function Login() {
         localStorage.setItem("message", message);
 
         // Navigate to the home page after successful login
-        navigate("/");
+        const userrole = user.role;
+        if (userrole === "admin") {
+          navigate("/dashboard");
+        } else {
+          navigate("/");
+        }
       })
       .catch((e) => {
         setResponseMessage(e.message);

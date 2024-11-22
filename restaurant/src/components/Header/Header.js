@@ -6,22 +6,25 @@ import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
 import {motion} from "framer-motion"
-const navigation = [
-  
-  { name: 'Home', href: '/', current: true },
-  { name: 'Dashboard', href: '/dashboard', current: true },
-  { name: 'Menu', href: '/menu', current: false },
-  { name: 'Contact us', href: '/contact', current: false },
-  { name: 'About', href:'/about', current: false },
-];
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Header() {
+
   const user = JSON.parse(localStorage.getItem("user"));
+  const isAdmin = user?.role === "admin";
+
+  const navigation = [
   
+    { name: 'Home', href: '/', current: true },
+    ...(isAdmin ? [{ name: 'Dashboard', href: '/dashboard', current: false }] : []),
+    { name: 'Menu', href: '/menu', current: false },
+    { name: 'Contact us', href: '/contact', current: false },
+    { name: 'About', href:'/about', current: false },
+  ];
   const handleSignOut = () => {
     // Add your sign-out logic here
     localStorage.removeItem("user");

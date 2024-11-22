@@ -5,7 +5,7 @@ const StripeController = {};
 StripeController.createCheckoutSession = async (req, res) => {
   // console.log(req.body);
   const { userId, cart, deliveryDetails } = req.body;
-  
+
   cartItems = cart;
 
   //   console.log(userId);
@@ -29,7 +29,8 @@ StripeController.createCheckoutSession = async (req, res) => {
       };
     });
 
-    const baseURL = process.env.BASE_URL || "http://localhost:7000";
+    const baseURL =
+      process.env.BASE_URL || "https://fooddelivery-ivory.vercel.app";
     if (!baseURL.startsWith("http://") && !baseURL.startsWith("https://")) {
       throw new Error("BASE_URL must start with http:// or https://");
     }

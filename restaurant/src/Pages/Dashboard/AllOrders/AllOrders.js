@@ -8,7 +8,13 @@ function AllOrders() {
   }, []);
 
   const getOrders = () => {
-    fetch("http://localhost:7000/api/order") // Ensure endpoint URL is correct
+    fetch("https://fooddelivery-ivory.vercel.app/api/order", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }) // Ensure endpoint URL is correct
       .then((response) => response.json())
       .then((data) => {
         setOrders(data);
@@ -17,10 +23,11 @@ function AllOrders() {
       .catch((error) => console.error("Error fetching orders:", error));
   };
   const handleStatusChange = (orderId, newStatus) => {
-    fetch(`http://localhost:7000/api/order/${orderId}`, {
+    fetch(`https://fooddelivery-ivory.vercel.app/api/order/${orderId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify({ status: newStatus }),
     })

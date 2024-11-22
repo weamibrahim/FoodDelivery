@@ -39,9 +39,10 @@ function CreateFood() {
 
     try {
       await axios
-        .post("http://localhost:7000/api/food", formData, {
+        .post("https://fooddelivery-ivory.vercel.app/api/food", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         })
         .then((res) => {
@@ -110,8 +111,11 @@ function CreateFood() {
               />
               <br />
               <div className="flex justify-center">
-                <button className="bg-green-500 rounded-md w-20 h-10 text-white" type="submit">
-                  Create 
+                <button
+                  className="bg-green-500 rounded-md w-20 h-10 text-white"
+                  type="submit"
+                >
+                  Create
                 </button>
               </div>
             </form>

@@ -28,7 +28,7 @@ export default function Signup() {
     e.preventDefault();
 
     // send data to API
-    fetch("http://localhost:7000/api/user/register", {
+    fetch("https://fooddelivery-ivory.vercel.app/api/user/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

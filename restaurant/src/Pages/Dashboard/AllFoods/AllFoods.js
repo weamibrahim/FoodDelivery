@@ -10,7 +10,7 @@ function AllFoods() {
     GetAllFood();
   }, []);
   const GetAllFood = () => {
-    fetch("http://localhost:7000/api/food/", {
+    fetch("https://fooddelivery-ivory.vercel.app/api/food/", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -20,8 +20,12 @@ function AllFoods() {
       });
   };
   const handleDelete = (id) => {
-    fetch(`http://localhost:7000/api/food/${id}`, {
+    fetch(`https://fooddelivery-ivory.vercel.app/api/food/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

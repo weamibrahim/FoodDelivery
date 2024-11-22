@@ -12,7 +12,16 @@ export default function OrderSummary() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:7000/api/order/${userId}`);
+        const response = await fetch(
+          `https://fooddelivery-ivory.vercel.app/api/order/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch orders");
         }
@@ -48,7 +57,6 @@ export default function OrderSummary() {
           <table className="w-full border-collapse border border-gray-300">
             <thead className="bg-gray-200">
               <tr>
-              
                 <th className="border border-gray-300 p-2">Name</th>
                 <th className="border border-gray-300 p-2">Address</th>
                 <th className="border border-gray-300 p-2">Phone</th>
@@ -61,10 +69,15 @@ export default function OrderSummary() {
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id} className="text-center">
-                  
-                  <td className="border border-gray-300 p-2">{order.DeliveryAddress.name}</td>
-                  <td className="border border-gray-300 p-2">{order.DeliveryAddress.address}</td>
-                  <td className="border border-gray-300 p-2">{order.DeliveryAddress.phone}</td>
+                  <td className="border border-gray-300 p-2">
+                    {order.DeliveryAddress.name}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {order.DeliveryAddress.address}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {order.DeliveryAddress.phone}
+                  </td>
                   <td className="border border-gray-300 p-2">{order.status}</td>
                   <td className="border border-gray-300 p-2">
                     {new Date(order.date).toLocaleString()}
@@ -78,7 +91,9 @@ export default function OrderSummary() {
                       ))}
                     </ul>
                   </td>
-                  <td className="border border-gray-300 p-2">${order.totalAmount}</td>
+                  <td className="border border-gray-300 p-2">
+                    ${order.totalAmount}
+                  </td>
                 </tr>
               ))}
             </tbody>

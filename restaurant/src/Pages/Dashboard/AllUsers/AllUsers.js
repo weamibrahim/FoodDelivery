@@ -9,8 +9,12 @@ function AllUsers() {
     GetAllUser();
   }, []);
   const GetAllUser = () => {
-    fetch("http://localhost:7000/api/user/", {
+    fetch("https://fooddelivery-ivory.vercel.app/api/user/", {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -19,8 +23,12 @@ function AllUsers() {
       });
   };
   const handleDelete = (id) => {
-    fetch(`http://localhost:7000/api/user/${id}`, {
+    fetch(`https://fooddelivery-ivory.vercel.app/api/user/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

@@ -15,7 +15,7 @@ function UpdateFood() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:7000/api/food/${id}`)
+      .get(`https://fooddelivery-ivory.vercel.app/api/food/${id}`)
       .then((response) => setFoodData(response.data))
       .catch((error) => console.error("Error fetching food data:", error));
   }, [id]);
@@ -45,9 +45,10 @@ function UpdateFood() {
     });
 
     axios
-      .put(`http://localhost:7000/api/food/${id}`, formData, {
+      .put(`https://fooddelivery-ivory.vercel.app/api/food/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       })
       .then((response) => {
@@ -113,7 +114,10 @@ function UpdateFood() {
               />
               <br />
               <div className="flex justify-center">
-                <button className="bg-green-500 rounded-md w-20 h-10 text-white" type="submit">
+                <button
+                  className="bg-green-500 rounded-md w-20 h-10 text-white"
+                  type="submit"
+                >
                   Update
                 </button>
               </div>

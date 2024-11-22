@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Footer from "./components/Footer/Footer";
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import About from './Pages/About/About';
 import Contact from "./Pages/Contact/Contact";
 import Home from './Pages/Home';
@@ -20,25 +20,27 @@ import CreateFood from './Pages/Dashboard/AllFoods/CreateFood';
 import UpdateFood from './Pages/Dashboard/AllFoods/UpdateFood';
 import AllOrders from './Pages/Dashboard/AllOrders/AllOrders';
 import Checkout from './Pages/Checkout/Checkout';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Loader from './Pages/Loader';
-
 import OrderSummary from './Pages/OrderSummary/OrderSummery';
 import NotFound from './Pages/NotFound';
 
-
-<Loader/>
-
-
 function App() {
-  const [loading, setLoading] = useState(true); // Start with loading set to true
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
+
+  // Simulating role fetching
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userRole = user?.role || ''; // Default to an empty string if user data doesn't exist
+  const isAdmin = userRole === 'admin';
+
   const isDashboard = location.pathname.startsWith('/dashboard');
-const isNotFouned=location.pathname.startsWith("*")
+  
+
   useEffect(() => {
     // Simulate a loading delay on initial page load
     const handleComplete = () => setLoading(false);
-    setTimeout(handleComplete, 300); // Adjust delay as needed
+    setTimeout(handleComplete, 300);
 
     return () => clearTimeout(handleComplete);
   }, []); // Empty dependency array to ensure this runs only on the first load
@@ -55,19 +57,28 @@ const isNotFouned=location.pathname.startsWith("*")
   return (
     <div className="App">
       <AnimatePresence>
-        {loading && <Loader/>} {/* Only show loading screen when `loading` is true */}
+        {loading && <Loader />}
       </AnimatePresence>
       {!loading && (
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
+            {/* Dashboard routes protected by role */}
             <Route element={<Layout />}>
-              <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='/dashboard/users' element={<AllUsers />} />
-              <Route path='/dashboard/foods' element={<AllFoods />} />
-              <Route path='/dashboard/create' element={<CreateFood />} />
-              <Route path='/dashboard/update/:id' element={<UpdateFood />} />
-              <Route path='/dashboard/orders' element={<AllOrders />} />
+              {isAdmin ? (
+                <>
+                  <Route path='/dashboard' element={<Dashboard />} />
+                  <Route path='/dashboard/users' element={<AllUsers />} />
+                  <Route path='/dashboard/foods' element={<AllFoods />} />
+                  <Route path='/dashboard/create' element={<CreateFood />} />
+                  <Route path='/dashboard/update/:id' element={<UpdateFood />} />
+                  <Route path='/dashboard/orders' element={<AllOrders />} />
+                </>
+              ) : (
+                <Route path='/dashboard/*' element={<Navigate to="/not-found" replace />} />
+              )}
             </Route>
+
+            {/* Public routes */}
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
             <Route path='/contact' element={<Contact />} />
@@ -79,14 +90,14 @@ const isNotFouned=location.pathname.startsWith("*")
             <Route path='/userSettings' element={<AccountSettings />} />
             <Route path='/menu' element={<Menu />} />
             <Route path='/checkout' element={<Checkout />} />
-            <Route path='/order' element={<OrderSummary/>} />
-            <Route path="*"  element={<NotFound/>} />
+            <Route path='/order' element={<OrderSummary />} />
+            <Route path='/not-found' element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
       )}
       {/* Conditionally render Footer based on dashboard path */}
-      {!isDashboard && !loading &&isNotFouned&& <Footer className="bottom-0" />}
-    
+      {!isDashboard && !loading && ! <Footer className="bottom-0" />}
     </div>
   );
 }
