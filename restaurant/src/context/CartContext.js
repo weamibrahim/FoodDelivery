@@ -3,25 +3,20 @@ import { createContext, useState, useEffect } from "react";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]); // قائمة المنتجات في السلة
+  const [isLoading, setIsLoading] = useState(false); // حالة التحميل
 
-  // Initialize cart from local storage
+  // جلب بيانات السلة عند تحميل التطبيق
   useEffect(() => {
-    const localCart = JSON.parse(localStorage.getItem("cart"));
-    if (Array.isArray(localCart)) {
-      setCart(localCart);
-    } else {
-      setCart([]);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user?.id) {
+      fetchCart(user.id);
     }
   }, []);
 
-  // Sync cart to local storage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  // Fetch cart from backend
+  // دالة لجلب بيانات السلة من الـ API
   const fetchCart = async (userId) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/${userId}`,
@@ -34,7 +29,6 @@ export const CartProvider = ({ children }) => {
         }
       );
       const responseData = await response.json();
-      console.log("Fetched Cart Data:", responseData);
 
       if (response.ok) {
         setCart(Array.isArray(responseData.items) ? responseData.items : []);
@@ -43,28 +37,24 @@ export const CartProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error with fetchCart API request:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Add to cart
+  // إضافة منتج للسلة
   const addToCart = async (product, userId) => {
-    console.log("Product received in addToCart:", product);
-
     if (!product || !product._id) {
       console.error("Invalid product or missing _id:", product);
       return;
     }
 
+    setIsLoading(true);
     try {
-      console.log("cart", cart);
       const existingItem = cart.find((item) => item._id === product._id);
-      console.log("Existing item in cart:", existingItem);
       if (existingItem) {
         await incrementQuantity(product._id, userId);
       } else {
-        const newItem = { ...product, quantity: 1 };
-        setCart((prevCart) => [...prevCart, newItem]);
-
         const requestBody = {
           userId,
           foodId: product._id,
@@ -83,7 +73,9 @@ export const CartProvider = ({ children }) => {
           }
         );
 
-        if (!response.ok) {
+        if (response.ok) {
+          fetchCart(userId);
+        } else {
           const responseData = await response.json();
           console.error(
             "Error adding product to the cart:",
@@ -94,18 +86,14 @@ export const CartProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error with addToCart API request:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Increment quantity
+  // زيادة الكمية
   const incrementQuantity = async (foodId, userId) => {
-    const updatedCart = cart.map((item) =>
-      item.foodId._id === foodId
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    );
-    setCart(updatedCart);
-
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/incrementQuantity/${userId}/${foodId}`,
@@ -118,77 +106,58 @@ export const CartProvider = ({ children }) => {
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        fetchCart(userId);
+      } else {
         const responseData = await response.json();
         console.error(
           "Error incrementing product quantity:",
           response.status,
           responseData
         );
-
-        const rollbackCart = cart.map((item) =>
-          item.foodId._id === foodId
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-        setCart(rollbackCart);
       }
     } catch (error) {
       console.error("Error with incrementQuantity API request:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Decrement quantity
+  // تقليل الكمية
   const decrementQuantity = async (foodId, userId) => {
-    const item = cart.find((item) => item.foodId._id === foodId);
-    if (item && item.quantity === 1) {
-      await deleteItem(foodId, userId);
-    } else {
-      const updatedCart = cart.map((item) =>
-        item.foodId._id === foodId
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
-      setCart(updatedCart);
-
-      try {
-        const response = await fetch(
-          `https://food-delivery-two-phi.vercel.app/api/cart/decrementQuantity/${userId}/${foodId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          const responseData = await response.json();
-          console.error(
-            "Error decrementing product quantity:",
-            response.status,
-            responseData
-          );
-
-          const rollbackCart = cart.map((item) =>
-            item.foodId._id === foodId
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          );
-          setCart(rollbackCart);
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `https://food-delivery-two-phi.vercel.app/api/cart/decrementQuantity/${userId}/${foodId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }
-      } catch (error) {
-        console.error("Error with decrementQuantity API request:", error);
+      );
+
+      if (response.ok) {
+        fetchCart(userId);
+      } else {
+        const responseData = await response.json();
+        console.error(
+          "Error decrementing product quantity:",
+          response.status,
+          responseData
+        );
       }
+    } catch (error) {
+      console.error("Error with decrementQuantity API request:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Delete item from cart
+  // حذف عنصر معين من السلة
   const deleteItem = async (foodId, userId) => {
-    const updatedCart = cart.filter((item) => item.foodId._id !== foodId);
-    setCart(updatedCart);
-
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/remove-item/${userId}/${foodId}`,
@@ -201,28 +170,27 @@ export const CartProvider = ({ children }) => {
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        fetchCart(userId); // تحديث بيانات السلة بعد الحذف
+      } else {
         const responseData = await response.json();
         console.error(
           "Error deleting item from cart:",
           response.status,
           responseData
         );
-        setCart([
-          ...updatedCart,
-          cart.find((item) => item.foodId._id === foodId),
-        ]);
       }
     } catch (error) {
       console.error("Error with deleteItem API request:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Delete entire cart
+  // مسح السلة بالكامل
   const deleteCart = async (userId) => {
+    setIsLoading(true);
     try {
-      setCart([]);
-
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/${userId}`,
         {
@@ -234,21 +202,20 @@ export const CartProvider = ({ children }) => {
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        setCart([]);
+      } else {
         const responseData = await response.json();
         console.error("Error deleting cart:", response.status, responseData);
       }
     } catch (error) {
       console.error("Error with deleteCart API request:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Log the cart after changes
-  useEffect(() => {
-    console.log("Cart state updated:", cart);
-  }, [cart]);
-
-  // Calculate total price
+  // حساب إجمالي السعر
   const getTotalPrice = () => {
     return cart.reduce((total, item) => {
       if (item.foodId && typeof item.foodId.price === "number") {
@@ -262,13 +229,14 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider
       value={{
+        cart,
+        isLoading,
+        fetchCart,
         addToCart,
         incrementQuantity,
         decrementQuantity,
         deleteItem,
         deleteCart,
-        fetchCart,
-        cart: Array.isArray(cart) ? cart : [], // Ensure cart is always an array
         getTotalPrice,
       }}
     >
