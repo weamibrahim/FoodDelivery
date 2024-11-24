@@ -98,7 +98,8 @@ function App() {
         </AnimatePresence>
       )}
       {/* Conditionally render Footer based on dashboard path */}
-      {!isDashboard && !loading && ! <Footer className="bottom-0" />}
+      {!isDashboard && !loading && location.pathname !== '/not-found' && <Footer className="bottom-0" />}
+
     </div>
   );
 }
