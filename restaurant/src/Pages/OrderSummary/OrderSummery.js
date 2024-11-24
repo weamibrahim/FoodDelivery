@@ -38,7 +38,7 @@ export default function OrderSummary() {
   }, [userId]);
 
   if (loading) {
-    return <div className="text-center mt-10">Loading orders...</div>;
+    return <div className="min-h-screen flex justify-center items-center">Loading orders...</div>;
   }
 
   if (error) {

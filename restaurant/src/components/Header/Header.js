@@ -125,6 +125,16 @@ const cartCount=cart.length
                       </Link>
                     )}
                   </MenuItem>
+                  <MenuItem>
+                    {({ active }) => (
+                      <Link
+                        to="/order"
+                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                      >
+                        Track Order
+                      </Link>
+                    )}
+                  </MenuItem>
                  <Link to={"/login"}> <MenuItem>
                     {({ active }) => (
                       <button
