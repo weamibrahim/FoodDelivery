@@ -53,8 +53,8 @@ export default function OrderSummary() {
       {orders.length === 0 ? (
         <div className="text-center mt-10">No orders found</div>
       ) : (
-        <div className="container m-auto mt-10">
-          <table className="w-full border-collapse border border-gray-300">
+        <div className="container overflow-x-auto m-auto mt-10">
+          <table className="min-w-full border-collapse border border-gray-300">
             <thead className="bg-gray-200">
               <tr>
                 <th className="border border-gray-300 p-2">Name</th>

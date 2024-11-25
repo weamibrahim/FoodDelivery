@@ -47,7 +47,7 @@ export default function Menu() {
              <Link to={`/productDetails/${product._id}`}>
                  <img
                    className="card-img"
-                   src="/East Meets West_ Shirataki Noodles Paired with Chicken, Feta, and Tomato Medley.jpeg"
+                   src={product.image}
                    alt={product.name}
                  />
                </Link>

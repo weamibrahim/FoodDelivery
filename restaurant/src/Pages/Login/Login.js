@@ -110,7 +110,7 @@ export default function Login() {
               >
                 Submit
               </button>
-              <p>{responseMessage}</p>
+              <p className="text-red-800  mt-5">{responseMessage}</p>
             </form>
           </div>
           <div className="bg-green-900 h-auto lg:w-1/3 login-right rounded-md">

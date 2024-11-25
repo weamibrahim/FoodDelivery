@@ -52,7 +52,7 @@ export default function TopDishes() {
         <h2 className="mt-28 title text-2xl">Top Dishes</h2>
         <div className="mx-4">
           {x === false ? (
-            <ul className="cards-parent mt-5 border-orange-700 grid gap-5 container m-auto p-6 xl:grid-rows-1 xl:gap-5 lg:grid-rows-3 lg:grid-flow-col lg:gap-7 lg:p-10 md:grid-rows-10 md:grid-flow-col md:gap-4 md:p-8">
+            <ul className="cards-parent  mt-5 border-orange-700 grid gap-5 container m-auto p-6 xl:grid-rows-1 xl:gap-5 lg:grid-rows-3 lg:grid-flow-col lg:gap-7 lg:p-10 md:grid-rows-10 md:grid-flow-col md:gap-4 md:p-8">
               {products.map((product, index) => (
                 <motion.div
                   key={product._id}
@@ -65,7 +65,7 @@ export default function TopDishes() {
                   <Link to={`/productDetails/${product._id}`}>
                     <img
                       className="card-img"
-                      src="/East Meets West_ Shirataki Noodles Paired with Chicken, Feta, and Tomato Medley.jpeg"
+                      src={product.image}
                       alt={product.name}
                     />
                   </Link>
@@ -104,7 +104,7 @@ export default function TopDishes() {
               {searchP.map((product, index) => (
                 <motion.div
                   key={product._id}
-                  className="card relative"
+                  className="card w-full relative"
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -113,7 +113,7 @@ export default function TopDishes() {
                   <Link to={`/productDetails/${product._id}`}>
                     <img
                       className="card-img"
-                      src="/East Meets West_ Shirataki Noodles Paired with Chicken, Feta, and Tomato Medley.jpeg"
+                      src={product.image}
                       alt={product.name}
                     />
                   </Link>

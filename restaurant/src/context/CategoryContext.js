@@ -12,14 +12,14 @@ export const CategoryProvider = ({ children }) => {
   };
 
   const BreakFast = (products) => {
-    setSearchP(products.filter((item) => item.category === "Rolls"));
+    setSearchP(products.filter((item) => item.category === "Breakfast"));
     setX(true);
   };
 
   const MainDishes = (products) => {
     setSearchP(
       products.filter(
-        (item) => item.category === "Pure Veg" || item.category === "Noodles"
+        (item) => item.category === "Main dishes"
       )
     );
     setX(true);
@@ -36,7 +36,7 @@ export const CategoryProvider = ({ children }) => {
   };
 
   const Juice = (products) => {
-    setSearchP(products.filter((item) => item.category === "Cake"));
+    setSearchP(products.filter((item) => item.category === "Juice"));
     setX(true);
   };
 

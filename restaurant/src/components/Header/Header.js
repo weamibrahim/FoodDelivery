@@ -20,7 +20,7 @@ export default function Header() {
   const navigation = [
   
     { name: 'Home', href: '/', current: true },
-    ...(isAdmin ? [{ name: 'Dashboard', href: '/dashboard', current: false }] : []),
+    ...(isAdmin ? [{ name: 'Dashboard', href: '/dashboard/orders', current: false }] : []),
     { name: 'Menu', href: '/menu', current: false },
     { name: 'Contact us', href: '/contact', current: false },
     { name: 'About', href:'/about', current: false },
