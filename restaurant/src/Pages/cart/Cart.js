@@ -30,7 +30,7 @@ export default function Cart() {
               product.foodId ? (
                 <li key={product.foodId._id} className="bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <Link to={'/productDetails'}>
-                    <img className="object-cover w-full h-48 rounded-t-lg" src="/East Meets West_ Shirataki Noodles Paired with Chicken, Feta, and Tomato Medley.jpeg" alt="" />
+                    <img className="object-cover w-full h-48 rounded-t-lg" src={product.img} alt="" />
                   </Link>
                   <div className="p-4">
                     <Link to={'/productDetails'}>
