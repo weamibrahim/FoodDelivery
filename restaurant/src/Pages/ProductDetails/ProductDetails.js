@@ -39,7 +39,7 @@ export default function ProductDetails() {
   }
 
   if (products.length === 0) {
-    return <section>Loading...</section>;
+    return <section className='min-h-screen flex justify-center items-center'>Loading...</section>;
   }
 
   // Get the right product by ensuring both id and _id are strings
@@ -63,7 +63,7 @@ export default function ProductDetails() {
         >
           <img
             className="object-cover w-full rounded-t-lg h-96 lg:h-auto lg:w-72 lg:rounded-none lg:rounded-l-lg" 
-            src="/East Meets West_ Shirataki Noodles Paired with Chicken, Feta, and Tomato Medley.jpeg"
+            src={product.image}
             alt={product.name}
           />
           <div className="flex flex-col justify-between p-8 leading-normal lg:w-2/3"> 
