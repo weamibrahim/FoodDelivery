@@ -79,7 +79,7 @@ export default function ProductDetails() {
                   console.log(product)
                   addToCart(product,userId)}
                   }
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                className="bg-orange-700 text-white px-4 py-2 rounded-md"
               >
                 Add to Cart
               </button>
