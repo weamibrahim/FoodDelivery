@@ -1,0 +1,4 @@
+.menu-img{
+    @apply m-auto rounded-full aspect-square object-cover p-1;
+    cursor: pointer;
+}
