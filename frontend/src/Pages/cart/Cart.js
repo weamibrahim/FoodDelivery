@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export default function Cart() {
   const { cart, fetchCart, incrementQuantity, decrementQuantity, deleteItem, deleteCart, getTotalPrice ,isLoading } = useContext(CartContext);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -14,7 +14,7 @@ console.log(cart)
     }
   }, [userId]);
  if(isLoading){
-  return <div className='min-h-screen flex justify-center items-center'>Loading products ....</div>;
+  return <div className='min-h-screen flex justify-center items-center '><AiOutlineLoading3Quarters/></div>;
  }
   return (
     <div className="min-h-screen flex flex-col">

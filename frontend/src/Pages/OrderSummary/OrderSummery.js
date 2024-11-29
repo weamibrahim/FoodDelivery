@@ -46,7 +46,7 @@ export default function OrderSummary() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen mb-10">
       <div className="bg-orange-700">
         <Header />
       </div>

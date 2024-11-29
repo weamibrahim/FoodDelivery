@@ -13,7 +13,7 @@ export default function TopDishes() {
   const { x, searchP } = useContext(CategoryContext);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
-  products.length = 5;
+  products.length = 4;
 
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user ? user._id : null;
@@ -45,16 +45,16 @@ export default function TopDishes() {
       {showAlert && <Alert message={alert.message} type={alert.type} onClose={closeAlert} />}
     </div>
       <motion.div
-        className="m-auto container mb-28"
+        className=" mb-28 "
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
         <Menu />
-        <h2 className="mt-28 title text-2xl">Top Dishes</h2>
-        <div className="mx-4">
+        <h2 className="mt-28 mb-10 title text-2xl">Top Dishes</h2>
+        <div className="  m-auto container w-full">
           {x === false ? (
-            <ul className="cards-parent mt-5 border-orange-700 grid gap-5 container m-auto p-6 xl:grid-rows-1 xl:gap-5 lg:grid-rows-3 lg:grid-flow-col lg:gap-7 lg:p-10  md:gap-4 md:p-8">
+            <ul className=" mt-5 border-orange-700 grid grid-flow-row gap-4 container m-auto xl:grid-cols-4  lg:grid-cols-3 md:grid-cols-2 ">
               {products.map((product, index) => (
                 <motion.div
                   key={product._id}
@@ -116,7 +116,7 @@ export default function TopDishes() {
                   <Link to={`/productDetails/${product._id}`}>
                     <img
                     width={300}
-                      className="card-img"
+                      className="card-img w-full"
                       src={product.image}
                       alt={product.name}
                     />

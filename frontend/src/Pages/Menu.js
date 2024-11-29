@@ -3,6 +3,7 @@ import { fetchProducts } from "../Products";
 import { CartContext } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/Header';
+import Alert from "../Alert"
 export default function Menu() {
     const [products,setProducts]=useState([])
     const [error,setError]=useState(null)
@@ -21,7 +22,11 @@ export default function Menu() {
     };
     getProducts();
   }, []);
-
+  const [showAlert, setShowAlert] = useState(false);
+  const [alert, setAlert] = useState({ message: '', type: '' });
+  const closeAlert = () => {
+    setShowAlert(false);
+  };
   if (error) {
     return <div>{error}</div>;
   }
@@ -33,10 +38,13 @@ export default function Menu() {
   return (
     <div className='min-h-screen'>
         <div className='bg-orange-700'><Header/></div>
+        <div>
+      {showAlert && <Alert message={alert.message} type={alert.type} onClose={closeAlert} />}
+    </div>
         <h1 className='text-2xl title mt-16'>Our Products </h1>
        <ul
            
-           className="cards-parent mt-5  mb-10 border-orange-700 grid gap-5 container m-auto p-6 xl:grid-rows-5  xl:gap-7  lg:grid-rows-3 lg:grid-flow-col lg:gap-7 lg:p-10 md:grid-rows-10 md:grid-flow-col md:gap-4 md:p-8"
+           className="cards-parent mt-5  mb-10 border-orange-700 grid grid-flow-row gap-5 container m-auto p-6 lg:grid-cols-4 md:grid-rows-3   "
          >
            {products.map((product) => (
              <div
@@ -46,7 +54,8 @@ export default function Menu() {
              >
              <Link to={`/productDetails/${product._id}`}>
                  <img
-                   className="card-img"
+                 width={300}
+                   className="card-img w-full"
                    src={product.image}
                    alt={product.name}
                  />
@@ -65,11 +74,16 @@ export default function Menu() {
                <button
                  className="bg-orange-700  py-1 px-2 rounded-lg text-white"
                  onClick={() => {
-                   if (userId) {
-                     addToCart(product, userId);
-                   } else {
-                     alert("Please log in to add items to the cart.");
-                   }
+                  if (userId) {
+                    addToCart(product, userId);
+                   setAlert({message:"Item added to cart successfuly" ,type:"success"})
+                    setShowAlert(true)
+                  } else {
+                    
+                  
+                    setAlert({message:"Please log in to add items to the cart." ,type:"error"})
+                    setShowAlert(true)
+                  }
                  }}
                >
                  Add to Cart

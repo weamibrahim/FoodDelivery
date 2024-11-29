@@ -88,7 +88,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const incrementQuantity = async (foodId, userId) => {
-    setIsLoading(true);
+    
     try {
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/incrementQuantity/${userId}/${foodId}`,
@@ -113,13 +113,11 @@ export const CartProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error with incrementQuantity API request:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const decrementQuantity = async (foodId, userId) => {
-    setIsLoading(true);
+   
     try {
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/decrementQuantity/${userId}/${foodId}`,
@@ -144,13 +142,11 @@ export const CartProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error with decrementQuantity API request:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   const deleteItem = async (foodId, userId) => {
-    setIsLoading(true);
+  
     try {
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/remove-item/${userId}/${foodId}`,
@@ -181,7 +177,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const deleteCart = async (userId) => {
-    setIsLoading(true);
+   
     try {
       const response = await fetch(
         `https://food-delivery-two-phi.vercel.app/api/cart/${userId}`,
@@ -202,8 +198,6 @@ export const CartProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error with deleteCart API request:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 

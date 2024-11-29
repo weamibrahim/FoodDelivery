@@ -1,18 +1,11 @@
 .card{
-    @apply max-w-sm bg-white border m-auto border-gray-200 rounded-lg shadow   p-3 h-full;
+    @apply  bg-white border m-auto border-gray-200 rounded-lg shadow   p-3 h-full;
 }
 .card-img{
     @apply rounded-t-lg h-56  object-cover;
 }
-.container {
-    padding: 0 1rem;
-  }
-  
-  .cards-parent {
-    display: grid;
-    justify-content: center;
-    gap: 1rem;
-  }
+
+ 
   .container {
     padding: 0 1rem;
   }
