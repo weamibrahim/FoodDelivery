@@ -96,10 +96,10 @@ const cartCount=cart.length
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {user&&<Link
               to={"/cart"}
-              className="relative rounded-full bg-white p-2 text-orange-600 hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              className=" rounded-full bg-white p-2 text-orange-600 hover:bg-orange-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
               <GiShoppingCart />
-              <div className='absolute bg-orange-800  h-5 w-5 text-center rounded-full text-white -top-2 -right-2'>{cartCount}</div>
+            
             </Link>}
 
             {/* Profile dropdown */}

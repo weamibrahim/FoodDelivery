@@ -44,10 +44,10 @@ function App() {
     setTimeout(handleComplete, 300);
 
     return () => clearTimeout(handleComplete);
-  }, []); // Empty dependency array to ensure this runs only on the first load
+  }, []); 
 
   useEffect(() => {
-    // Show loader on route change
+ 
     setLoading(true);
     const handleComplete = () => setLoading(false);
     setTimeout(handleComplete, 300);

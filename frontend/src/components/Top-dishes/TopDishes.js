@@ -13,7 +13,7 @@ export default function TopDishes() {
   const { x, searchP } = useContext(CategoryContext);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
-  products.length = 4;
+  products.length = 5;
 
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user ? user._id : null;
@@ -54,7 +54,7 @@ export default function TopDishes() {
         <h2 className="mt-28 mb-10 title text-2xl">Top Dishes</h2>
         <div className="  m-auto container w-full">
           {x === false ? (
-            <ul className=" mt-5 border-orange-700 grid grid-flow-row gap-4 container m-auto xl:grid-cols-4  lg:grid-cols-3 md:grid-cols-2 ">
+            <ul className=" mt-5 border-orange-700 grid grid-flow-row gap-3 container m-auto xl:grid-cols-5  lg:grid-cols-3 md:grid-cols-2 ">
               {products.map((product, index) => (
                 <motion.div
                   key={product._id}
@@ -66,8 +66,8 @@ export default function TopDishes() {
                 >
                   <Link to={`/productDetails/${product._id}`}>
                     <img
-                    width={300}
-                      className="card-img"
+                    width={200}
+                      className="card-img w-full "
                       src={product.image}
                       alt={product.name}
                     />
@@ -103,54 +103,56 @@ export default function TopDishes() {
               ))}
             </ul>
           ) : (
-            <ul className="cards-parent mt-5 border-orange-700 grid gap-5 container m-auto p-6 xl:grid-rows-1 xl:gap-5 lg:grid-rows-3 lg:grid-flow-col lg:gap-7 lg:p-10 md:grid-rows-10 md:grid-flow-col md:gap-4 md:p-8">
-              {searchP.map((product, index) => (
-                <motion.div
-                  key={product._id}
-                  className="card w-full relative"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                >
+           <div className='container'>
+             <ul className=" mt-5  border-orange-700 grid grid-flow-row  container m-auto xl:grid-cols-3  lg:grid-cols-3 md:grid-cols-2  ">
+            {searchP.map((product, index) => (
+              <motion.div
+                key={product._id}
+                className="card w-4/5 relative"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Link to={`/productDetails/${product._id}`}>
+                  <img
+                  width={200}
+                    className="card-img w-full"
+                    src={product.image}
+                    alt={product.name}
+                  />
+                </Link>
+                
+                <div className="p-5">
                   <Link to={`/productDetails/${product._id}`}>
-                    <img
-                    width={300}
-                      className="card-img w-full"
-                      src={product.image}
-                      alt={product.name}
-                    />
+                    <h5 className="mb-2 font-bold tracking-tight text-gray-900 text-left">
+                      {product.name}
+                    </h5>
                   </Link>
-                  
-                  <div className="p-5">
-                    <Link to={`/productDetails/${product._id}`}>
-                      <h5 className="mb-2 font-bold tracking-tight text-gray-900 text-left">
-                        {product.name}
-                      </h5>
-                    </Link>
-                    <p className="mb-2 tracking-tight text-gray-900 text-left">Category: {product.category}</p>
-                    <p className="mb-3 text-red-900 text-left">Price: {product.price} $</p>
-                  </div>
-                  <button
-                    className="bg-orange-700 p-2 rounded-lg text-white absolute bottom-7 right-4"
-                    onClick={() => {
-                      if (userId) {
-                        addToCart(product, userId);
-                       setAlert({message:"Item added to cart successfuly" ,type:"success"})
-                        setShowAlert(true)
-                      } else {
-                        
+                  <p className="mb-2 tracking-tight text-gray-900 text-left">Category: {product.category}</p>
+                  <p className="mb-3 text-red-900 text-left">Price: {product.price} $</p>
+                </div>
+                <button
+                  className="bg-orange-700 p-2 rounded-lg text-white absolute bottom-7 right-4"
+                  onClick={() => {
+                    if (userId) {
+                      addToCart(product, userId);
+                     setAlert({message:"Item added to cart successfuly" ,type:"success"})
+                      setShowAlert(true)
+                    } else {
                       
-                        setAlert({message:"Please log in to add items to the cart." ,type:"error"})
-                        setShowAlert(true)
-                      }
-                    }}
-                  >
-                    <MdOutlineAddShoppingCart />
-                  </button>
-                </motion.div>
-              ))}
-            </ul>
+                    
+                      setAlert({message:"Please log in to add items to the cart." ,type:"error"})
+                      setShowAlert(true)
+                    }
+                  }}
+                >
+                  <MdOutlineAddShoppingCart />
+                </button>
+              </motion.div>
+            ))}
+          </ul>
+           </div>
           )}
         </div>
       </motion.div>

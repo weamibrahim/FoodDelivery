@@ -13,10 +13,11 @@ console.log(cart)
       fetchCart(userId);
     }
   }, [userId]);
- if(isLoading){
-  return <div className='min-h-screen flex justify-center items-center '><AiOutlineLoading3Quarters/></div>;
- }
-  return (
+  if (isLoading) {
+    return <div className='min-h-screen flex justify-center items-center'>Loading products ....</div>;
+  }
+
+return (
     <div className="min-h-screen flex flex-col">
       <div className="bg-orange-700"><Header /></div>
       <h1 className="text-center text-2xl font-bold mt-4">Your Dishes</h1>
@@ -25,7 +26,7 @@ console.log(cart)
         {cart.length === 0 ? (
           <div className="text-center mt-10">No products</div>
         ) : (
-          <ul className="mt-5 grid gap-5 container mx-auto p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <ul className="mt-5 grid gap-5 container mx-auto p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
             {cart.map((product) => (
               product.foodId ? (
                 <li key={product.foodId._id} className="bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">

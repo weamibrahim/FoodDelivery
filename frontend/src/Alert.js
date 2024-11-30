@@ -5,12 +5,12 @@ export default function Alert({ message, type, onClose }) {
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        onClose(); // Call the onClose function to dismiss the alert
-      }, 1000); // Auto-dismiss after 1 second
+        onClose(); 
+      }, 500); 
 
-      return () => clearTimeout(timer); // Cleanup timeout if component unmounts or message changes
+      return () => clearTimeout(timer); 
     }
-  }, [message, onClose]); // Re-run the effect whenever `message` or `onClose` changes
+  }, [message, onClose]); 
 
   return (
     <div>
@@ -19,7 +19,7 @@ export default function Alert({ message, type, onClose }) {
         initial={{ opacity: 0, x: "100vw" }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration:0.1 }}
         onClick={onClose}
       >
         <div className={`alert ${type} mb-8`}>{message}</div>
