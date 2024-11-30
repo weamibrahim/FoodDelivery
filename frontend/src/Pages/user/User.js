@@ -1,17 +1,18 @@
 
 import React, { useContext } from "react";
 import Header from '../../components/Header/Header'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from "../../context/UserContext";
 export default function User() {
   const {  deleteUser} = useContext(UserContext);
     const user=JSON.parse(localStorage.getItem("user"))
     console.log(user)
-
+const navigate=useNavigate()
     const handleDelete = () => {
       if (user) {
         if (window.confirm("Are you sure you want to delete your account? This action is irreversible.")) {
           deleteUser(user._id);
+          navigate("/signup")
         }
       }
     };

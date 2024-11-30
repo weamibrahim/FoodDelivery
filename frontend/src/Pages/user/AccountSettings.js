@@ -38,6 +38,7 @@ export default function AccountSettings() {
         )
       ) {
         deleteUser(user._id);
+        navigate("/signup")
       }
     }
   };
