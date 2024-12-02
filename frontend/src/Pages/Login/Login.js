@@ -51,7 +51,7 @@ export default function Login() {
         // Navigate to the home page after successful login
         const userrole = user.role;
         if (userrole === "admin") {
-          navigate("/dashboard");
+          navigate("/dashboard/users");
         } else {
           navigate("/");
         }
