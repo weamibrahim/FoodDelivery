@@ -104,11 +104,11 @@ export default function TopDishes() {
             </ul>
           ) : (
            <div className='container'>
-             <ul className=" mt-5  border-orange-700 grid grid-flow-row  container m-auto xl:grid-cols-3  lg:grid-cols-3 md:grid-cols-2  ">
+             <ul className=" mt-5  border-orange-700 grid grid-flow-row gap-3  container m-auto xl:grid-cols-3  lg:grid-cols-3 md:grid-cols-2  ">
             {searchP.map((product, index) => (
               <motion.div
                 key={product._id}
-                className="card w-4/5 relative"
+                className="card w-full xl:w-4/5 relative"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}

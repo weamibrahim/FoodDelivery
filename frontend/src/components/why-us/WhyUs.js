@@ -21,9 +21,9 @@ export default function WhyUs() {
           We are more than multiple services
         </h2>
         <p className=" my-8">
-        We have 80 years of collective experience with the added benefit of objectivity.
+        We have 10 years of collective experience with the added benefit of objectivity.
 We have been in your shoes, have been successful, have learned from mistakes (ours and others), and have a passion for the industry.
-We have trusted resources for every imaginable need: designers, contractors, point of sales systems, kitchen equipment, software, glassware and everything in between.
+we give you delicious food with good price .
 We understand real budgets and real time lines.
 Our vast resource network, and each of our team members’ unique set of skills allows for a “one stop shop” approach.
 You can hire the entire group, or just one or two of our consultants depending on your needs.
